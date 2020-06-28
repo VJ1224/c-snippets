@@ -4,6 +4,4 @@
 *.csv
 *.json
 *.exe
-opencv/opencv-4.3.0
-opencv/opencv_contrib
 kilo/

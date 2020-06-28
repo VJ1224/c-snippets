@@ -1,1 +1,1 @@
-# Code Snippets created using C/C++
+# Code Snippets for C/C++

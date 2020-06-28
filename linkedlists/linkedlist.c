@@ -22,6 +22,41 @@ void printList() {
    }
 }
 
+int listLength() {
+  current = head;
+  int i = 0;
+  while(current != NULL) {
+    current = current->next;
+    i++;
+  }
+
+  return i;
+}
+
+void replace(int n, int index) {
+  if (listLength() < index) {
+    printf("Index does not exist.\n");
+    return;
+  }
+
+  integer *new = (integer *) malloc(sizeof(integer));
+  new->num = n;
+  current = head;
+  int i = 1;
+
+  while(current != NULL) {
+    if(i + 1 == index) {
+      integer *temp = (integer *) malloc(sizeof(integer));
+      temp = current -> next -> next;
+      current -> next = new;
+      new -> next = temp;
+      return;
+    }
+    current = current-> next;
+    i++;
+  }
+}
+
 void append(int n) {
   integer *new = (integer *) malloc(sizeof(integer));
   new->num = n;
@@ -70,12 +105,16 @@ int main() {
     append(i);
   }
 
-  prepend(0);
+  append(20);
+  printList();
+  printf("\n");
+  replace(10,10);
   printList();
 
-  integer* number = find(1);
+  integer* number = find(10);
+  printf("\nFinding %d....",number->num);
   if (number != NULL)
-    printf("Found.\n");
+    printf("found.\n");
   else
-    printf("Not found.\n");
+    printf("not found.\n");
 }
