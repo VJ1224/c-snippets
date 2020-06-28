@@ -39,26 +39,41 @@ void replace(int n, int index) {
     return;
   }
 
-  integer *new = (integer *) malloc(sizeof(integer));
-  new->num = n;
   current = head;
   int i = 1;
 
   while(current != NULL) {
-    if(i + 1 == index) {
-      integer *temp = (integer *) malloc(sizeof(integer));
-      temp = current -> next -> next;
-      current -> next = new;
-      new -> next = temp;
+    if (i  == index) {
+      current -> num = n;
       return;
     }
-    current = current-> next;
+    current = current -> next;
+    i++;
+  }
+
+  printf("Could not replace.\n");
+}
+
+void delete(int index) {
+  if (listLength() < index) {
+    printf("Index does not exist.\n");
+    return;
+  }
+
+  current = head;
+  int i = 1;
+  while (current != NULL) {
+    if (i + 1 == index) {
+      free(current->next);
+      current -> next = current -> next -> next;
+    }
+    current = current -> next;
     i++;
   }
 }
 
 void append(int n) {
-  integer *new = (integer *) malloc(sizeof(integer));
+  integer * new = malloc(sizeof(integer));
   new->num = n;
 
   if (isEmpty()) {
@@ -77,7 +92,7 @@ void append(int n) {
 }
 
 void prepend(int n) {
-  integer *new = (integer *) malloc(sizeof(integer));
+  integer * new= malloc(sizeof(integer));
   new->num = n;
   new->next = head;
   head = new;
@@ -100,21 +115,36 @@ integer* find(int n) {
    return current;
 }
 
+void release() {
+  current = head;
+  while (current->next != NULL) {
+    integer * temp = current -> next;
+    free(current);
+    current = temp;
+  }
+  free(current);
+}
+
 int main() {
   for (int i = 1; i < 10; i++) {
     append(i);
   }
 
-  append(20);
+  prepend(10);
   printList();
   printf("\n");
-  replace(10,10);
+  replace(0,1);
   printList();
+  printf("\n");
 
-  integer* number = find(10);
-  printf("\nFinding %d....",number->num);
-  if (number != NULL)
+  int d = 0;
+  printf("Finding %d...", d);
+  integer* number = find(d);
+  if (number != NULL) {
     printf("found.\n");
-  else
+  } else {
     printf("not found.\n");
+  }
+
+  release();
 }
