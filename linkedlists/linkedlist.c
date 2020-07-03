@@ -92,7 +92,7 @@ void append(int n) {
 }
 
 void prepend(int n) {
-  integer * new= malloc(sizeof(integer));
+  integer * new = malloc(sizeof(integer));
   new->num = n;
   new->next = head;
   head = new;
@@ -125,6 +125,19 @@ void release() {
   free(current);
 }
 
+void reverse() {
+  integer * prev = NULL;
+  integer * next = NULL;
+  current = head;
+  while (current != NULL) {
+    next = current -> next;
+    current -> next = prev;
+    prev = current;
+    current = next;
+  }
+  head = prev;
+}
+
 int main() {
   for (int i = 1; i < 10; i++) {
     append(i);
@@ -137,14 +150,18 @@ int main() {
   printList();
   printf("\n");
 
-  int d = 0;
+  int d = 10;
   printf("Finding %d...", d);
   integer* number = find(d);
   if (number != NULL) {
-    printf("found.\n");
+    printf("found.\n\n");
   } else {
-    printf("not found.\n");
+    printf("not found.\n\n");
   }
+
+  reverse();
+  printList();
+  printf("\n");
 
   release();
 }
