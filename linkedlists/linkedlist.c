@@ -9,6 +9,45 @@ typedef struct integer {
 integer *head = NULL;
 integer *current = NULL;
 
+int isEmpty();
+void printList();
+int listLength();
+void replace(int, int);
+void delete(int);
+void append(int);
+void prepend(int);
+integer* find();
+void release();
+void reverse();
+
+int main() {
+  for (int i = 1; i < 10; i++) {
+    append(i);
+  }
+
+  prepend(10);
+  printList();
+  printf("\n");
+  replace(0,1);
+  printList();
+  printf("\n");
+
+  int d = 10;
+  printf("Finding %d...", d);
+  integer* number = find(d);
+  if (number != NULL) {
+    printf("found.\n\n");
+  } else {
+    printf("not found.\n\n");
+  }
+
+  reverse();
+  printList();
+  printf("\n");
+
+  release();
+}
+
 int isEmpty() {
   return head == NULL;
 }
@@ -136,32 +175,4 @@ void reverse() {
     current = next;
   }
   head = prev;
-}
-
-int main() {
-  for (int i = 1; i < 10; i++) {
-    append(i);
-  }
-
-  prepend(10);
-  printList();
-  printf("\n");
-  replace(0,1);
-  printList();
-  printf("\n");
-
-  int d = 10;
-  printf("Finding %d...", d);
-  integer* number = find(d);
-  if (number != NULL) {
-    printf("found.\n\n");
-  } else {
-    printf("not found.\n\n");
-  }
-
-  reverse();
-  printList();
-  printf("\n");
-
-  release();
 }
